@@ -3,7 +3,7 @@ require_relative '../config/environment'
 
 cli = CommandLine.new
 
-cli.welcome
-cli.menu
+cli.greet
+cli.premenu
 cli.menu_choice
 

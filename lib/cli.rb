@@ -7,35 +7,43 @@ class CommandLine
 
   #displays welcome message
 
-  def welcome
+  def greet
     puts Rainbow("
 
                                                                                                         
-        ooo.                   o               
-       8  `8.                 8               
-o    o 8   `8 .oPYo. .oPYo.  o8P .oPYo. oPYo. 
-8    8 8    8 8    8 8    '   8  8    8 8  `' 
-8    8 8   .P 8    8 8    .   8  8    8 8     
-`YooP' 8ooo'  `YooP' `YooP'   8  `YooP' 8     
-./\/\ :.....:.....:::.....::.....:::..::.....:
-:.....::::::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::
+        ooo.               
+       8  `8.              
+o    o 8   `8 .oPYo. .oPYo.
+8    8 8    8 8    8 8    '
+8    8 8   .P 8    8 8    .
+`YooP' 8ooo'  `YooP' `YooP'
+./\/\ :.....:.....:::.....:
+:.....:::::::::::::::::::::
+::::::::::::::::::::::::::: 
     
        ").blue
-    puts Rainbow("    The uDoctor App: \n Find your doctor by reviews, location, and specialty.  \n").white.bright
+    puts Rainbow("  /\\  The uDoc App  /\\ \n Find your doctor by location or specialty:  \n").white.bright
   end
 
 
   #menu page for user
-  def menu
+  def menuOLD
     puts "#{dashes}\n
-    Choose from the following options - using the numbers (1-6) as your input:\n
+    Choose from the following options using the numbers (1-6) as your input:\n
     - 1 - Create your user profile
     - 2 - Search for doctors by region
     - 3 - Search for doctors by specialty
     - 4 - Search for the doctors the user has visited
     - 5 - Does something else
     - 6 - Quit the application
+    "
+    end
+
+    def menu
+    puts "#{dashes}\n
+    Choose from the following options using the numbers 1 or 2 as your input:\n
+    - 1 - Login in to your profile
+    - 2 - Create a new profile
     "
     end
 

@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 3) do
     t.string "last_name"
     t.string "specialty"
     t.string "city"
+    t.string "state"
   end
 
   create_table "locations", force: :cascade do |t|

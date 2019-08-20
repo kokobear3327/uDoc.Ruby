@@ -7,178 +7,84 @@ class CommandLine
 
   #displays welcome message
 
-  def greet
+  def welcome
     puts Rainbow("
 
                                                                                                         
-        ooo.               
-       8  `8.              
-o    o 8   `8 .oPYo. .oPYo.
-8    8 8    8 8    8 8    '
-8    8 8   .P 8    8 8    .
-`YooP' 8ooo'  `YooP' `YooP'
-./\/\ :.....:.....:::.....:
-:.....:::::::::::::::::::::
-::::::::::::::::::::::::::: 
+    o              o               ooooo  o            8             ooo.                   o               
+    8              8               8                   8             8  `8.                 8               
+    8     .oPYo.  o8P .oPYo.      o8oo   o8 odYo. .oPYo8      o    o 8   `8 .oPYo. .oPYo.  o8P .oPYo. oPYo. 
+    8     8oooo8   8  Yb..         8      8 8' `8 8    8      8    8 8    8 8    8 8    '   8  8    8 8  `' 
+    8     8.       8    'Yb.       8      8 8   8 8    8      8    8 8   .P 8    8 8    .   8  8    8 8     
+    8oooo `Yooo'   8  `YooP'       8      8 8   8 `YooP'      `YooP' 8ooo'  `YooP' `YooP'   8  `YooP' 8     
+    ......:.....:::..::.....:oooo :..:::::....::..:.....:oooo :.....:.....:::.....::.....:::..::.....:..::::
+    :::::::::::::::::::::::::.....:::::::::::::::::::::::.....::::::::::::::::::::::::::::::::::::::::::::::
+    ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     
        ").blue
-    # puts Rainbow(" ❤ /\\❤  The uDoc App  ❤ /\\❤ \n Find your doctor by location or specialty:  \n").white.bright
-     puts Rainbow(" ❤ ❤ ❤  The uDoc App  ❤ ❤ ❤ \n Find your doctor by location or specialty:  \n").white.bright
+    puts Rainbow("    The uDoctor App:  We'll find the perfect doctor for you based on reviews, location, and specialty.  \n").white.bright
   end
 
-    def premenu
+
+  #menu page for user
+  def menu
     puts "#{dashes}\n
-    Choose from the following options using the numbers 1 to 4 as your input:\n
-    - 1 - Login in to your profile
-    - 2 - Create a new profile
-    - 3 - Go rogue
-    - 4 - Quit
-    "
-    end
-
-
-    #obtains user input from menu page
-  def pre_menu_choice
-    user_input = gets.chomp
-    case user_input
-    when "1"
-      login
-      return_to_menu
-    when "2"
-      signup
-      return_to_menu
-    when "3"
-      menu
-      menu_choice
-    when "4"
-      exit
-      # puts Rainbow("Here are all the authors to choose from:\n").white.bright
-      # show_all_authors
-      # puts Rainbow("\nPlease provide an author name:").white.bright
-      # author = gets.chomp
-      # find_article_titles_by_author(author)
-      # show_full_list_of_articles(author)
-      # return_to_menu
-    # when "5"
-    #   show_latest_article
-    #   return_to_menu
-    # when "6"
-    #   exit
-    else
-      puts Rainbow("Invalid option. Please select a number between 1 and 4.").white.bright
-      # menu
-      # menu_choice
-    end
-  end
-
-  def login
-    puts "here the user logs in"
-    puts "should bring you to the menu"
-  end
-
-
-    # Menu page for the logged in user
-    def menu
-    puts "#{dashes}\n
-    Choose from the following options using the numbers (1-6) as your input:\n
-    - 1 - Search for doctor by location \n
-    - 2 - Search for doctors by specialty \n
-    - 3 - /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ \n
-    - 4 - Search for doctors by name  \n
-    - 5 - Create a new user profile \n
+    Choose from the following options - using the numbers (1-6) as your input:\n
+    - 1 - Create your user profile
+    - 2 - Search for doctors by region
+    - 3 - Search for doctors by specialty
+    - 4 - Search for the doctors the user has visited
+    - 5 - Does something else
     - 6 - Quit the application
     "
     end
-
-    # Sign up dialogue
-    def signup 
-    puts "❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ \n"
-    puts "Enter your username"
-    username = gets.chomp
-    puts "Enter your age"
-    userage = gets.chomp
-    puts "Enter your email"
-    useremail = gets.chomp
-    createuser(username, userage, useremail)
-    puts "❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤  \n"
-    menu
-    menu_choice
-    # quit
-    # You should have the option to either exit the application or return to menu.
-    end
-
-    def createuser(username, userage, useremail)
-    puts "Username: #{username} was created successfully! \n"
-    end
-
-
-    def login
-    puts "To login, enter your username"
-    username = gets.chomp
-    loginuser(username)
-    # This ^ takes you to the menu portal
-    end
-
-    # def loginuser(username)
-
-    # Ends with you at the userportal
-
 
   #obtains user input from menu page
   def menu_choice
     user_input = gets.chomp
     case user_input
     when "1"
-      show_all_doctors_by_location
+      # Call function to show all of the doctors by region
+
+      # show_all_doctors_by_region
+
+      show_all_article_by_with_authors
       return_to_menu
     when "2"
-      show_all_doctors_by_speciality
+      # Call function to show all of the doctors by specialties
+      show_all_article_titles_with_content
       return_to_menu
     when "3"
-      puts "Not coded yet"
+      # Call function to show all of the doctors a user has visited
+      show_all_authors
       return_to_menu
     when "4"
-      puts "Not coded yet"
-      # puts Rainbow("Here are all the authors to choose from:\n").white.bright
-      # show_all_authors
-      # puts Rainbow("\nPlease provide an author name:").white.bright
-      # author = gets.chomp
-      # find_article_titles_by_author(author)
-      # show_full_list_of_articles(author)
+      puts Rainbow("Here are all the authors to choose from:\n").white.bright
+      show_all_authors
+      puts Rainbow("\nPlease provide an author name:").white.bright
+      author = gets.chomp
+      find_article_titles_by_author(author)
+      show_full_list_of_articles(author)
       return_to_menu
     when "5"
-      # show_latest_article
-      signup
+      show_latest_article
       return_to_menu
     when "6"
-      exit
+      quit
     else
       puts Rainbow("Invalid option. Please select a number between 1 and 6.").white.bright
-      # menu
-      # menu_choice
+      menu
+      menu_choice
     end
   end
 
-  def show_all_doctors_by_speciality
-    puts "show_all_doctors_by_speciality called"
-  end
-
-  def show_all_doctors_by_location
-    puts "show_all_doctors_by_location called"
-  end
-
-
   #quits the app
-  def exit
-    puts Rainbow("\n\n ❤ ❤ ❤ ❤ ❤ ❤ Thanks for choosing uDoc, we hope he's a great fit ❤ ❤ ❤ ❤ ❤ ❤ \n\n").blue.bright
+  def quit
+    puts Rainbow("\n\n ❤ ❤ ❤ ❤ ❤ ❤ Thanks for choosing uDoc, we hope you found a great fit ❤ ❤ ❤ ❤ ❤ ❤ \n\n").blue.bright
     nil
   end
 
-  def why
-    puts "why is this function called?"
-  end
-
-  # Sends you back to the menu
+  #reroutes user back to menu
   def return_to_menu
     puts Rainbow("\nWould you like to return to the menu? (y/n)").white.bright
     user_input = gets.chomp
@@ -199,7 +105,6 @@ o    o 8   `8 .oPYo. .oPYo.
 
   #loads the response hash
   def search_techcrunch
-    # Need to put the DoctorsAPI here.
     response_string = RestClient.get"https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=45aee5b7c7584064ac1b1de6297f5137"
     response_hash = JSON.parse(response_string.body)
   end
@@ -274,7 +179,6 @@ o    o 8   `8 .oPYo. .oPYo.
   end
 
   #shows an array of all authors in alphabetical order
-  
   def show_all_authors
     @all = []
     search_techcrunch["articles"].each do |article|
@@ -286,12 +190,6 @@ o    o 8   `8 .oPYo. .oPYo.
     end
     return nil
   end
-
-    # Call function to show all of the doctors a user has visited
-    # def show_doctors_patient_visited
-    #   Patient.all.select | patient | 
-
-    # end
 
   #finds all articles under the given author name (partial - first or last)
   def find_article_titles_by_author(author)
@@ -327,7 +225,7 @@ o    o 8   `8 .oPYo. .oPYo.
 
   #adds a line as a page breaker
   def dashes
-    return "------------------------------------------------------------------"
+    return "------------------------------------------------------------------------------------------------------"
   end
 
 end

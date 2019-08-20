@@ -5,5 +5,5 @@ cli = CommandLine.new
 
 cli.greet
 cli.premenu
-cli.menu_choice
+cli.pre_menu_choice
 

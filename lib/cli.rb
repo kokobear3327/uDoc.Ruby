@@ -81,10 +81,12 @@ o    o 8   `8 .oPYo. .oPYo.
     def menu
     puts "#{dashes}\n
     Choose from the following options using the numbers (1-6) as your input:\n
-    - 1 - Search for doctor by location \n
-    - 2 - Search for doctors by specialty \n
-    - 3 - /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ \n
-    - 4 - Search for doctors by name  \n
+          
+
+    - 1 - Search for doctor by name \n
+    - 2 - Search for doctors by location \n
+    - 3 - Search for doctors by speciality \n
+    - 4 - ____________________________________ \n
     - 5 - Create a new user profile \n
     - 6 - Quit the application
     "
@@ -119,23 +121,24 @@ o    o 8   `8 .oPYo. .oPYo.
     # This ^ takes you to the menu portal
     end
 
-    # def loginuser(username)
-
-    # Ends with you at the userportal
-
+    def loginuser(username)
+      menu
+      menu_choice
+    end
 
   #obtains user input from menu page
   def menu_choice
     user_input = gets.chomp
     case user_input
     when "1"
-      show_all_doctors_by_location
+      # Preferable to set the default to the Houston area
+      show_all_doctors
       return_to_menu
     when "2"
-      show_all_doctors_by_speciality
+      show_all_doctors_by_location
       return_to_menu
     when "3"
-      puts "Not coded yet"
+      show_all_doctors_by_speciality
       return_to_menu
     when "4"
       puts "Not coded yet"
@@ -147,7 +150,6 @@ o    o 8   `8 .oPYo. .oPYo.
       # show_full_list_of_articles(author)
       return_to_menu
     when "5"
-      # show_latest_article
       signup
       return_to_menu
     when "6"
@@ -157,6 +159,10 @@ o    o 8   `8 .oPYo. .oPYo.
       # menu
       # menu_choice
     end
+  end
+
+  def show_all_doctors
+    puts "shows_all_doctors has been called, preferably narrowing to the Houston Area"
   end
 
   def show_all_doctors_by_speciality
@@ -172,10 +178,6 @@ o    o 8   `8 .oPYo. .oPYo.
   def exit
     puts Rainbow("\n\n ❤ ❤ ❤ ❤ ❤ ❤ Thanks for choosing uDoc, we hope he's a great fit ❤ ❤ ❤ ❤ ❤ ❤ \n\n").blue.bright
     nil
-  end
-
-  def why
-    puts "why is this function called?"
   end
 
   # Sends you back to the menu
@@ -196,13 +198,22 @@ o    o 8   `8 .oPYo. .oPYo.
     end
   end
   end
+  
+  # /\   /\    /\
+  #REPLACEMENT loads the response hash
+  def search_doctors_api
+    # Need to put the DoctorsAPI here.
+    response_string = RestClient.get"https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=45aee5b7c7584064ac1b1de6297f5137"
+    response_hash = JSON.parse(response_string.body)
+  end
 
-  #loads the response hash
+  #OLD loads the response hash
   def search_techcrunch
     # Need to put the DoctorsAPI here.
     response_string = RestClient.get"https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=45aee5b7c7584064ac1b1de6297f5137"
     response_hash = JSON.parse(response_string.body)
   end
+  #      \/ 
 
   #creates an array of all articles - authors and title
   def all_article_titles_with_authors

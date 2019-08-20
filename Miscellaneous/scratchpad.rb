@@ -1,24 +1,3 @@
-def loginuser(username)
-
-end
-
-
-
-def createuser(username, userage, useremail)
-    puts "user created successfully!____"
-end
-
-
-def show_all_doctors_by_location
-    puts "show_all_doctors_by_location called"
-end
-
-
-def show_all_doctors_by_speciality
-    puts "show_all_doctors_by_speciality called"
-end
-
-
   #obtains user input from menu page
   def pre_menu_choice
     user_input = gets.chomp

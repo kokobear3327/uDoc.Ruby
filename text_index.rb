@@ -72,35 +72,67 @@ while true
 				doctor_specialty = Doctor.distinct.pluck(:specialty).sort
 				doctor_hash = {}
 				city_location = prompt.select("Which city?", doctor_locations)
+
 				Doctor.where(city: city_location).find_each do |doctor|
 					doctor_hash[doctor.last_name] = doctor.id
 				end
 				puts "There are #{doctor_hash.length} in #{city_location}"
-				patient_c = prompt.select("Would you like to refine your search?"[
-					
+				refined_search = prompt.select("Would you like to refine your search?", [
+					"Yes",
+					"No"	
 				])
-				# # if refined_choice == "Yes"
-				# # 	doc_spec = prompt.select("Which Specialty?", doctor_specialty)
-
-				# # else
-				# # 	doctor_id = prompt.select("Which Doctor?", doctor_hash)
-				# # 	Search.create({
-				# # 		doctor_id: doctor_id,
-				# # 		patient_id: current_patient.id
-				# # 	})
-				# end
+				if refined_search == "Yes"
+					refined_doctor_hash = {}
+					doc_spec = prompt.select("Which Specialty?", doctor_specialty)
+					Doctor.where({ city: city_location, specialty: doc_spec}).find_each do |doctor|
+						refined_doctor_hash[doctor.last_name] = doctor.id
+					end
+					doctor_id = prompt.select("Which Doctor?", refined_doctor_hash)
+					Search.create({
+						doctor_id: doctor_id,
+						patient_id: current_patient[0].id
+					})
+				else
+					doctor_id = prompt.select("Which Doctor?", doctor_hash)
+					Search.create({
+						doctor_id: doctor_id,
+						patient_id: current_patient[0].id
+					})
+				end
 			when "Specialty"
 				doctor_specialties = Doctor.distinct.pluck(:specialty).sort
+				doctor_locations = Doctor.distinct.pluck(:city).sort
 				doctor_hash = {}
 				doctor_specialty = prompt.select("Which Specialty?", doctor_specialties)
 				Doctor.where(specialty: doctor_specialty).find_each do |doctor|
 					doctor_hash[doctor.last_name] = doctor.id
 				end
-				doctor_id = prompt.select("Which Doctor?", doctor_hash)
-				Search.create({
-					doctor_id: doctor_id,
-					patient_id: current_patient.id
-				})
+				puts "There are #{doctor_hash.length} doctors who practice #{doctor_specialty}"
+				refined_search = prompt.select("Would you like to refine your search?", [
+					"Yes",
+					"No"	
+				])
+				if refined_search == "Yes"
+					refined_doctor_hash = {}
+					doc_city = prompt.select("Which City?", doctor_locations)
+					Doctor.where({ specialty: doctor_specialty, city: doc_city}).find_each do |doctor|
+						refined_doctor_hash[doctor.last_name] = doctor.id
+					end
+
+					#binding.pry
+
+					doctor_id = prompt.select("Which Doctor?", refined_doctor_hash)
+					Search.create({
+						doctor_id: doctor_id,
+						patient_id: current_patient[0].id
+					})
+				else
+					doctor_id = prompt.select("Which Doctor?", doctor_hash)
+					Search.create({
+						doctor_id: doctor_id,
+						patient_id: current_patient[0].id
+					})
+				end
 			else
 				"Please choose a valid option"
 			end

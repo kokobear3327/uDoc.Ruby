@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 5) do
+ActiveRecord::Schema.define(version: 3) do
 
   create_table "doctors", force: :cascade do |t|
     t.string "first_name"
@@ -20,18 +20,18 @@ ActiveRecord::Schema.define(version: 5) do
     t.string "state"
   end
 
-  create_table "locations", force: :cascade do |t|
-    t.string "name"
-    t.integer "patient_id"
-    t.integer "doctor_id"
-  end
-
   create_table "patients", force: :cascade do |t|
     t.string "user_name"
+    t.string "password"
     t.string "first_name"
     t.string "last_name"
-    t.string "password"
     t.string "city"
+    t.string "doctors_searched"
+  end
+
+  create_table "searches", force: :cascade do |t|
+    t.integer "patient_id"
+    t.integer "doctor_id"
   end
 
 end

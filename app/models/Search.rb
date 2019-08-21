@@ -1,4 +1,4 @@
-class Location < ActiveRecord::Base
-	belongs_to(:patients)
-	belongs_to(:doctors)
+class Search < ActiveRecord::Base
+	belongs_to(:patient)
+	belongs_to(:doctor)
 end

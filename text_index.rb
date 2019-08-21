@@ -8,7 +8,9 @@ while current_patient == nil
 		"Sign Up",
 		"Login",
 	])
-	if (users_response == "Sign Up")
+
+	case users_response
+	when "Sign Up"
 		username = prompt.ask("Please enter a username:")
 		password = prompt.ask("Please enter a password:")
 		
@@ -17,12 +19,8 @@ while current_patient == nil
 			password: password
 		})
 
-		current_patient_location = Location.create({
-			patient_id: current_patient.id
-		})
-	end
 
-	if (users_response == "Login")
+	when"Login"
 		current_patient = Patient.where({
 			user_name: prompt.ask("What is your username?"),
 			password: prompt.ask("What is your password?")
@@ -47,7 +45,7 @@ while true
 			"First Name",
 			"Last Name",
 			"City",
-			"Quit"
+			"Quit"])
 		case response
 			when "First Name"
 				first_name = prompt.ask("Please enter your first name: ")
@@ -58,12 +56,11 @@ while true
 			when "City"
 				city = prompt.ask("What city in the Greater Houston Metro Area are you in?")
 				current_patient.update(city: city)
-				current_patient_location.update(name: city)
 			when "Quit"
 				break
 			else
 				"Please choose a valid option"
-			end
+		end
 	when "Search for Doctors"
 		search_response = prompt.select("What would you like to search by?", [
 			"City Location",
@@ -73,39 +70,42 @@ while true
 			when "City Location"
 				doctor_locations = Doctor.distinct.pluck(:city).sort
 				doctor_specialty = Doctor.distinct.pluck(:specialty).sort
-				doctor_array = []
+				doctor_hash = {}
 				city_location = prompt.select("Which city?", doctor_locations)
 				Doctor.where(city: city_location).find_each do |doctor|
-					doctor_array << doctor
+					doctor_hash[doctor.last_name] = doctor.id
 				end
-				puts "There are #{doctor_array.length} doctors in #{city_location}"
-				refine_selection = prompt.select("Would you like to refine your search?", [
-					"Yes",
-					"No"
+				puts "There are #{doctor_hash.length} in #{city_location}"
+				patient_c = prompt.select("Would you like to refine your search?"[
+					
 				])
-				if refine_selection == "Yes"
-					doc_spec = prompt.select("Which specialty?", doctor_specialty)
-					doctor_array.each do |doctor|
-						if doc_spec == doctor.specialty
-							
-						end
-					end
-				end
+				# # if refined_choice == "Yes"
+				# # 	doc_spec = prompt.select("Which Specialty?", doctor_specialty)
 
-
+				# # else
+				# # 	doctor_id = prompt.select("Which Doctor?", doctor_hash)
+				# # 	Search.create({
+				# # 		doctor_id: doctor_id,
+				# # 		patient_id: current_patient.id
+				# # 	})
+				# end
 			when "Specialty"
-
+				doctor_specialties = Doctor.distinct.pluck(:specialty).sort
+				doctor_hash = {}
+				doctor_specialty = prompt.select("Which Specialty?", doctor_specialties)
+				Doctor.where(specialty: doctor_specialty).find_each do |doctor|
+					doctor_hash[doctor.last_name] = doctor.id
+				end
+				doctor_id = prompt.select("Which Doctor?", doctor_hash)
+				Search.create({
+					doctor_id: doctor_id,
+					patient_id: current_patient.id
+				})
 			else
 				"Please choose a valid option"
-
-				
 			end
-				
-			
-				
 	
-		
-	end
+		end
 end
 
 

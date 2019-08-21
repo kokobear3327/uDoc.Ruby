@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 3) do
+ActiveRecord::Schema.define(version: 5) do
 
   create_table "doctors", force: :cascade do |t|
     t.string "first_name"
@@ -27,10 +27,11 @@ ActiveRecord::Schema.define(version: 3) do
   end
 
   create_table "patients", force: :cascade do |t|
+    t.string "user_name"
     t.string "first_name"
     t.string "last_name"
-    t.string "date_of_birth"
-    t.string "insurance_network"
+    t.string "password"
+    t.string "city"
   end
 
 end

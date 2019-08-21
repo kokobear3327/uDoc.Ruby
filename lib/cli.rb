@@ -1,95 +1,103 @@
 require 'rest-client'
 require 'json'
 require 'rainbow'
-
+ActiveRecord::Base.logger = nil
+# prompt = TTY::Prompt.new
 
 class CommandLine
 
   #displays welcome message
 
+
   def greet
     puts Rainbow("
 
-                                                                                                        
         ooo.               
        8  `8.              
 o    o 8   `8 .oPYo. .oPYo.
 8    8 8    8 8    8 8    '
 8    8 8   .P 8    8 8    .
-`YooP' 8ooo'  `YooP' `YooP'
+`Y00P' 8ooo'  `YooP' `YooP'
 ./\/\ :.....:.....:::.....:
 :.....:::::::::::::::::::::
 ::::::::::::::::::::::::::: 
-    
-       ").blue
+
+       ").green
     # puts Rainbow(" ❤ /\\❤  The uDoc App  ❤ /\\❤ \n Find your doctor by location or specialty:  \n").white.bright
-     puts Rainbow(" ❤ ❤ ❤  The uDoc App  ❤ ❤ ❤ \n Find your doctor by location or specialty:  \n").white.bright
+     puts Rainbow(" ❤ ❤  The ultimate Doctor finding App ❤ ❤").white.bright 
+     puts Rainbow("Find your doctor by location or specialty:  \n").green
   end
 
     def premenu
-    puts "#{dashes}\n
-    Choose from the following options using the numbers 1 to 4 as your input:\n
-    - 1 - Login in to your profile
-    - 2 - Create a new profile
-    - 3 - Go rogue
-    - 4 - Quit
-    "
-    end
+    prompt = TTY::Prompt.new
+    user_input = prompt.select("What do you want to do?", [
+    "Login in to your profile",
+    "Create a new profile",
+    "Go rogue",
+    "Quit"
+    ])
 
-
-    #obtains user input from menu page
-  def pre_menu_choice
-    user_input = gets.chomp
     case user_input
-    when "1"
-      login
-      return_to_menu
-    when "2"
-      signup
-      return_to_menu
-    when "3"
-      menu
-      menu_choice
-    when "4"
-      exit
-      # puts Rainbow("Here are all the authors to choose from:\n").white.bright
-      # show_all_authors
-      # puts Rainbow("\nPlease provide an author name:").white.bright
-      # author = gets.chomp
-      # find_article_titles_by_author(author)
-      # show_full_list_of_articles(author)
-      # return_to_menu
-    # when "5"
-    #   show_latest_article
-    #   return_to_menu
-    # when "6"
-    #   exit
+    when "Login in to your profile"
+    login
+    return_to_menu
+    when "Create a new profile"
+    signup
+    return_to_menu
+    when "Go rogue"
+    menu
+    return_to_menu
+    when "Quit"
+    exit
     else
-      puts Rainbow("Invalid option. Please select a number between 1 and 4.").white.bright
-      # menu
-      # menu_choice
+    puts Rainbow("Invalid option. Please select a number between 1 and 4.").white.bright
     end
-  end
+end
 
-  def login
+    def login
     puts "here the user logs in"
     puts "should bring you to the menu"
-  end
-
+    end
 
     # Menu page for the logged in user
     def menu
-    puts "#{dashes}\n
-    Choose from the following options using the numbers (1-6) as your input:\n
-          
+    prompt = TTY::Prompt.new
+    user_input = prompt.select("What do you want to do?", [
+          "Create your user profile",
+          "Search for doctors by region",
+          "Search for doctors by specialty",
+          "Search for the doctors the user has visited",
+          "Does something else",
+          "Quit the application"
+    ])
 
-    - 1 - Search for doctor by name \n
-    - 2 - Search for doctors by location \n
-    - 3 - Search for doctors by speciality \n
-    - 4 - ____________________________________ \n
-    - 5 - Create a new user profile \n
-    - 6 - Quit the application
-    "
+    case user_input
+
+    when "Create your user profile"
+      # Preferable to set the default to the Houston area
+      show_all_doctors
+      return_to_menu
+    when "Search for doctors by region"
+        show_all_doctors_by_location
+        return_to_menu
+    when "Search for doctors by specialty"
+      show_all_doctors_by_location
+      return_to_menu
+    when "Search for the doctors the user has visited"
+      show_all_doctors_by_speciality
+      return_to_menu
+    when "Does something else"
+      puts "Not coded yet"
+      return_to_menu
+    when "Quit the application"
+      signup
+      return_to_menu
+    when "6"
+      exit
+    else
+      puts Rainbow("Invalid option...").white.bright
+    end
+
     end
 
     # Sign up dialogue
@@ -104,7 +112,6 @@ o    o 8   `8 .oPYo. .oPYo.
     createuser(username, userage, useremail)
     puts "❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤  \n"
     menu
-    menu_choice
     # quit
     # You should have the option to either exit the application or return to menu.
     end
@@ -123,43 +130,7 @@ o    o 8   `8 .oPYo. .oPYo.
 
     def loginuser(username)
       menu
-      menu_choice
     end
-
-  #obtains user input from menu page
-  def menu_choice
-    user_input = gets.chomp
-    case user_input
-    when "1"
-      # Preferable to set the default to the Houston area
-      show_all_doctors
-      return_to_menu
-    when "2"
-      show_all_doctors_by_location
-      return_to_menu
-    when "3"
-      show_all_doctors_by_speciality
-      return_to_menu
-    when "4"
-      puts "Not coded yet"
-      # puts Rainbow("Here are all the authors to choose from:\n").white.bright
-      # show_all_authors
-      # puts Rainbow("\nPlease provide an author name:").white.bright
-      # author = gets.chomp
-      # find_article_titles_by_author(author)
-      # show_full_list_of_articles(author)
-      return_to_menu
-    when "5"
-      signup
-      return_to_menu
-    when "6"
-      exit
-    else
-      puts Rainbow("Invalid option. Please select a number between 1 and 6.").white.bright
-      # menu
-      # menu_choice
-    end
-  end
 
   def show_all_doctors
     puts "shows_all_doctors has been called, preferably narrowing to the Houston Area"
@@ -176,7 +147,7 @@ o    o 8   `8 .oPYo. .oPYo.
 
   #quits the app
   def exit
-    puts Rainbow("\n\n ❤ ❤ ❤ ❤ ❤ ❤ Thanks for choosing uDoc, we hope he's a great fit ❤ ❤ ❤ ❤ ❤ ❤ \n\n").blue.bright
+    puts Rainbow("\n\n ❤ ❤ ❤  Thanks for choosing uDoc, we hope he's a great fit ❤ ❤ ❤ \n\n").green
     nil
   end
 
@@ -186,7 +157,7 @@ o    o 8   `8 .oPYo. .oPYo.
     user_input = gets.chomp
     if user_input == "y"
     menu
-    menu_choice
+
   elsif user_input == "n"
     puts Rainbow("Would you like to quit the app? (y/n)").white.bright
     user_input = gets.chomp
@@ -194,7 +165,6 @@ o    o 8   `8 .oPYo. .oPYo.
       exit
     else
       menu
-      menu_choice
     end
   end
   end
@@ -256,7 +226,6 @@ o    o 8   `8 .oPYo. .oPYo.
     when "n"
       puts Rainbow("Sorry to hear that, we'll take you back to the menu now!").white.bright
       menu
-      menu_choice
     end
   end
 
@@ -298,11 +267,6 @@ o    o 8   `8 .oPYo. .oPYo.
     return nil
   end
 
-    # Call function to show all of the doctors a user has visited
-    # def show_doctors_patient_visited
-    #   Patient.all.select | patient | 
-
-    # end
 
   #finds all articles under the given author name (partial - first or last)
   def find_article_titles_by_author(author)
@@ -338,7 +302,7 @@ o    o 8   `8 .oPYo. .oPYo.
 
   #adds a line as a page breaker
   def dashes
-    return "------------------------------------------------------------------"
+    return "--------------------------------------------------------"
   end
 
 end

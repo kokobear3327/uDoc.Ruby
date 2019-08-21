@@ -13,3 +13,6 @@ gem 'sinatra'
 gem 'thin'
 gem 'rake'
 gem 'activerecord', '5.2'
+# Added2
+gem 'tty-prompt'
+gem 'artii'

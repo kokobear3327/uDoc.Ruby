@@ -16,6 +16,10 @@ while current_patient == nil
 			user_name: username,
 			password: password
 		})
+
+		current_patient_location = Location.create({
+			patient_id: current_patient.id
+		})
 	end
 
 	if (users_response == "Login")
@@ -53,9 +57,9 @@ while true
 				last_name = prompt.ask("Please enter your last name: ")
 				current_patient.update(last_name: last_name)
 			when "City"
-				city = prompt.ask("What city in the Greater Houston Metro Area are you in?
-					Please enter the city in all caps with no spaces. Ex. SUGARLAND instead of Sugar Land")
+				city = prompt.ask("What city in the Greater Houston Metro Area are you in?")
 				current_patient.update(city: city)
+				current_patient_location.update(name: city)
 			when "Quit"
 				break
 			else
@@ -68,31 +72,40 @@ while true
 		])
 		case search_response
 			when "City Location"
-				doc_location = {}
-				Doctor.order(first_name: :asc).each do | doctor |
-					doc_location[doctor.city] = doctor.id
+				doctor_locations = Doctor.distinct.pluck(:city).sort
+				doctor_specialty = Doctor.distinct.pluck(:specialty).sort
+				doctor_array = []
+				city_location = prompt.select("Which city?", doctor_locations)
+				Doctor.where(city: city_location).find_each do |doctor|
+					doctor_array << doctor
 				end
-				city_location = prompt.select("What city do you want to search?", doc_location)
-				case city_location
-					when "HOUSTON"
-						doc_names = {}
-						Doctor.find_by(city: "HOUSTON").each do |doctor|
-							doc_names[doctor.first_name]
+				puts "There are #{doctor_array.length} doctors in #{city_location}"
+				refine_selection = prompt.select("Would you like to refine your search?", [
+					"Yes",
+					"No"
+				])
+				if refine_selection == "Yes"
+					doc_spec = prompt.select("Which specialty?", doctor_specialty)
+					doctor_array.each do |doctor|
+						if doc_spec == doctor.specialty
+							
 						end
-						select_doctor = prompt.select("Which doctor do you want?", doc_names)
 					end
-			# when "Specialty"
-			# 	doc_specialty = {}
-			# 	Doctor.order(first_name: :asc).each do | doctor |
-			# 		doc_specialty[doctor.specialty] = doctor.id
-			# 	end
-			# 	doctor_id = prompt.select("What Specialty do you want to search?", doc_specialty)
-			# 	Location.create({
-			# 		doctor_id: doctor_id,
-			# 		patient_id: current_patient.id
-			# 	})
-			# end
-		end
+				end
+
+
+			when "Specialty"
+
+			else
+				"Please choose a valid option"
+
+				
+			end
+				
+			
+				
+	
+		
 	end
 end
 

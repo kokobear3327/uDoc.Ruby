@@ -1,10 +1,12 @@
 class CreatePatients < ActiveRecord::Migration[4.2]
 	def change
 		create_table :patients do |table|
+			table.string :user_name
+			table.string :password
 			table.string :first_name
 			table.string :last_name
-			table.string :date_of_birth
-			table.string :insurance_network
+			table.string :city
+			table.string :doctors_searched
 		end
 	end
 end

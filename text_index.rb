@@ -37,48 +37,62 @@ while true
 		"Review Searches",
 		"Quit"
 	])
-	if (users_response == "Update Profile")
-		response = prompt.select("What would you like to update/do?", [
+	case users_response
+	when "Update Profile"
+		response = prompt.select("What would you like to update?", [
 			"First Name",
 			"Last Name",
 			"City",
 			"Quit"
 		])
-		if (response == "First Name")
-			first_name = prompt.ask("What is your first name?")
-			current_patient.update(first_name: first_name)
-		end
-
-		if (response == "Last Name")
-			last_name = prompt.ask("What is your last name?")
-			current_patient.update(last_name: last_name)
-		end
-
-		if (response == "City")
-			city = prompt.ask("What city in the Greater Houston Metro area are you in?")
-			current_patient.update(city: city)
-		end
-
-	if (response == "Search for Doctors")
-		doc_response = prompt.select("What would you like to search by?", [
+		case response
+			when "First Name"
+				first_name = prompt.ask("Please enter your first name: ")
+				current_patient.update(first_name: first_name)
+			when "Last Name"
+				last_name = prompt.ask("Please enter your last name: ")
+				current_patient.update(last_name: last_name)
+			when "City"
+				city = prompt.ask("What city in the Greater Houston Metro Area are you in?
+					Please enter the city in all caps with no spaces. Ex. SUGARLAND instead of Sugar Land")
+				current_patient.update(city: city)
+			when "Quit"
+				break
+			else
+				"Please choose a valid option"
+			end
+	when "Search for Doctors"
+		search_response = prompt.select("What would you like to search by?", [
 			"City Location",
 			"Specialty"
 		])
-		if (doc_response == "City Location")
-			doc_specialty = {}
-			Doctor.order(first_name: :asc).each do |doctor|
-				doc_specialty[doctor.first_name] = doctor.id
-			end
-			doctor_id = prompt.ask("What specialty do you want to search by?", doc_specialty)
-			Location.create({
-				patient_id: current_patient.id,
-				doctor_id: doctor_id
-			})
-			end
-	
-	end
-	if (users_response == "Quit")
-		break
+		case search_response
+			when "City Location"
+				doc_location = {}
+				Doctor.order(first_name: :asc).each do | doctor |
+					doc_location[doctor.city] = doctor.id
+				end
+				city_location = prompt.select("What city do you want to search?", doc_location)
+				case city_location
+					when "HOUSTON"
+						doc_names = {}
+						Doctor.find_by(city: "HOUSTON").each do |doctor|
+							doc_names[doctor.first_name]
+						end
+						select_doctor = prompt.select("Which doctor do you want?", doc_names)
+					end
+			# when "Specialty"
+			# 	doc_specialty = {}
+			# 	Doctor.order(first_name: :asc).each do | doctor |
+			# 		doc_specialty[doctor.specialty] = doctor.id
+			# 	end
+			# 	doctor_id = prompt.select("What Specialty do you want to search?", doc_specialty)
+			# 	Location.create({
+			# 		doctor_id: doctor_id,
+			# 		patient_id: current_patient.id
+			# 	})
+			# end
+		end
 	end
 end
 

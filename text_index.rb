@@ -48,7 +48,6 @@ while true
 			"Last Name",
 			"City",
 			"Quit"
-		])
 		case response
 			when "First Name"
 				first_name = prompt.ask("Please enter your first name: ")

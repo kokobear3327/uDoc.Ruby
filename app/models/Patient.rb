@@ -1,4 +1,4 @@
 class Patient < ActiveRecord::Base
-	belongs_to(:location)
-	has_many(:doctors, {through: :location})
+	has_many(:searches)
+	has_many(:doctors, {through: :searches})
 end

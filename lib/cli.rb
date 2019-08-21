@@ -78,8 +78,8 @@ end
       show_all_doctors
       return_to_menu
     when "Search for doctors by region"
-        show_all_doctors_by_location
-        return_to_menu
+      show_all_doctors_by_location
+      return_to_menu
     when "Search for doctors by specialty"
       show_all_doctors_by_location
       return_to_menu
@@ -89,10 +89,9 @@ end
     when "Does something else"
       puts "Not coded yet"
       return_to_menu
+    when "Does something else"
+      puts "Not coded yet"
     when "Quit the application"
-      signup
-      return_to_menu
-    when "6"
       exit
     else
       puts Rainbow("Invalid option...").white.bright

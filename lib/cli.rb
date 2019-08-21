@@ -1,88 +1,152 @@
 require 'rest-client'
 require 'json'
 require 'rainbow'
-
+ActiveRecord::Base.logger = nil
+# prompt = TTY::Prompt.new
 
 class CommandLine
 
   #displays welcome message
 
-  def welcome
+
+  def greet
     puts Rainbow("
 
-                                                                                                        
-        ooo.                   o               
-       8  `8.                 8               
-o    o 8   `8 .oPYo. .oPYo.  o8P .oPYo. oPYo. 
-8    8 8    8 8    8 8    '   8  8    8 8  `' 
-8    8 8   .P 8    8 8    .   8  8    8 8     
-`YooP' 8ooo'  `YooP' `YooP'   8  `YooP' 8     
-./\/\ :.....:.....:::.....::.....:::..::.....:
-:.....::::::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::
-    
-       ").blue
-    puts Rainbow("    The uDoctor App: \n Find your doctor by reviews, location, and specialty.  \n").white.bright
+        ooo.               
+       8  `8.              
+o    o 8   `8 .oPYo. .oPYo.
+8    8 8    8 8    8 8    '
+8    8 8   .P 8    8 8    .
+`Y00P' 8ooo'  `YooP' `YooP'
+./\/\ :.....:.....:::.....:
+:.....:::::::::::::::::::::
+::::::::::::::::::::::::::: 
+
+       ").green
+    # puts Rainbow(" ❤ /\\❤  The uDoc App  ❤ /\\❤ \n Find your doctor by location or specialty:  \n").white.bright
+     puts Rainbow(" ❤ ❤  The ultimate Doctor finding App ❤ ❤").white.bright 
+     puts Rainbow("Find your doctor by location or specialty:  \n").green
   end
 
+    def premenu
+    prompt = TTY::Prompt.new
+    user_input = prompt.select("What do you want to do?", [
+    "Login in to your profile",
+    "Create a new profile",
+    "Go rogue",
+    "Quit"
+    ])
 
-  #menu page for user
-  def menu
-    puts "#{dashes}\n
-    Choose from the following options - using the numbers (1-6) as your input:\n
-    - 1 - Create your user profile
-    - 2 - Search for doctors by region
-    - 3 - Search for doctors by specialty
-    - 4 - Search for the doctors the user has visited
-    - 5 - Does something else
-    - 6 - Quit the application
-    "
-    end
-
-  #obtains user input from menu page
-  def menu_choice
-    user_input = gets.chomp
     case user_input
-    when "1"
-      # Call function to show all of the doctors by region
-
-      # show_all_doctors_by_region
-
-      # show_all_article_by_with_authors
-      return_to_menu
-    when "2"
-      # Call function to show all of the doctors by specialties
-      # show_all_article_titles_with_content
-      # show_all_doctors_by_specialty
-      return_to_menu
-    when "3"
-      # Call function to show all of the doctors a user has visited
-      # show_all_authors
-      # show_doctors_patient_visited
-      return_to_menu
-    when "4"
-      puts Rainbow("Here are all the authors to choose from:\n").white.bright
-      show_all_authors
-      puts Rainbow("\nPlease provide an author name:").white.bright
-      author = gets.chomp
-      find_article_titles_by_author(author)
-      show_full_list_of_articles(author)
-      return_to_menu
-    when "5"
-      show_latest_article
-      return_to_menu
-    when "6"
-      quit
+    when "Login in to your profile"
+    login
+    return_to_menu
+    when "Create a new profile"
+    signup
+    return_to_menu
+    when "Go rogue"
+    menu
+    return_to_menu
+    when "Quit"
+    exit
     else
-      puts Rainbow("Invalid option. Please select a number between 1 and 6.").white.bright
-      menu
-      menu_choice
+    puts Rainbow("Invalid option. Please select a number between 1 and 4.").white.bright
     end
+end
+
+    def login
+    puts "here the user logs in"
+    puts "should bring you to the menu"
+    end
+
+    # Menu page for the logged in user
+    def menu
+    prompt = TTY::Prompt.new
+    user_input = prompt.select("What do you want to do?", [
+          "Create your user profile",
+          "Search for doctors by region",
+          "Search for doctors by specialty",
+          "Search for the doctors the user has visited",
+          "Does something else",
+          "Quit the application"
+    ])
+
+    case user_input
+
+    when "Create your user profile"
+      # Preferable to set the default to the Houston area
+      show_all_doctors
+      return_to_menu
+    when "Search for doctors by region"
+      show_all_doctors_by_location
+      return_to_menu
+    when "Search for doctors by specialty"
+      show_all_doctors_by_location
+      return_to_menu
+    when "Search for the doctors the user has visited"
+      show_all_doctors_by_speciality
+      return_to_menu
+    when "Does something else"
+      puts "Not coded yet"
+      return_to_menu
+    when "Does something else"
+      puts "Not coded yet"
+    when "Quit the application"
+      exit
+    else
+      puts Rainbow("Invalid option...").white.bright
+    end
+
+    end
+
+    # Sign up dialogue
+    def signup 
+    puts "❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ \n"
+    puts "Enter your username"
+    username = gets.chomp
+    puts "Enter your age"
+    userage = gets.chomp
+    puts "Enter your email"
+    useremail = gets.chomp
+    createuser(username, userage, useremail)
+    puts "❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤  \n"
+    menu
+    # quit
+    # You should have the option to either exit the application or return to menu.
+    end
+
+    def createuser(username, userage, useremail)
+    puts "Username: #{username} was created successfully! \n"
+    end
+
+
+    def login
+    puts "To login, enter your username"
+    username = gets.chomp
+    loginuser(username)
+    # This ^ takes you to the menu portal
+    end
+
+    def loginuser(username)
+      menu
+    end
+
+  def show_all_doctors
+    puts "shows_all_doctors has been called, preferably narrowing to the Houston Area"
   end
+
+  def show_all_doctors_by_speciality
+    puts "show_all_doctors_by_speciality called"
+  end
+
+  def show_all_doctors_by_location
+    puts "show_all_doctors_by_location called"
+  end
+
 
   #quits the app
-  def quit
-    puts Rainbow("\n\n ❤ ❤ ❤ ❤ ❤ ❤ Thanks for choosing uDoctor, we hope he's a great fit ❤ ❤ ❤ ❤ ❤ ❤ \n\n").blue.bright
+  def exit
+    puts Rainbow("\n\n ❤ ❤ ❤  Thanks for choosing uDoc, we hope he's a great fit ❤ ❤ ❤ \n\n").green
     nil
   end
 
@@ -92,7 +156,7 @@ o    o 8   `8 .oPYo. .oPYo.  o8P .oPYo. oPYo.
     user_input = gets.chomp
     if user_input == "y"
     menu
-    menu_choice
+
   elsif user_input == "n"
     puts Rainbow("Would you like to quit the app? (y/n)").white.bright
     user_input = gets.chomp
@@ -100,17 +164,25 @@ o    o 8   `8 .oPYo. .oPYo.  o8P .oPYo. oPYo.
       exit
     else
       menu
-      menu_choice
     end
   end
   end
+  
+  # /\   /\    /\
+  #REPLACEMENT loads the response hash
+  def search_doctors_api
+    # Need to put the DoctorsAPI here.
+    response_string = RestClient.get"https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=45aee5b7c7584064ac1b1de6297f5137"
+    response_hash = JSON.parse(response_string.body)
+  end
 
-  #loads the response hash
+  #OLD loads the response hash
   def search_techcrunch
     # Need to put the DoctorsAPI here.
     response_string = RestClient.get"https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=45aee5b7c7584064ac1b1de6297f5137"
     response_hash = JSON.parse(response_string.body)
   end
+  #      \/ 
 
   #creates an array of all articles - authors and title
   def all_article_titles_with_authors
@@ -153,7 +225,6 @@ o    o 8   `8 .oPYo. .oPYo.  o8P .oPYo. oPYo.
     when "n"
       puts Rainbow("Sorry to hear that, we'll take you back to the menu now!").white.bright
       menu
-      menu_choice
     end
   end
 
@@ -183,8 +254,6 @@ o    o 8   `8 .oPYo. .oPYo.  o8P .oPYo. oPYo.
 
   #shows an array of all authors in alphabetical order
   
-  
-  
   def show_all_authors
     @all = []
     search_techcrunch["articles"].each do |article|
@@ -196,13 +265,6 @@ o    o 8   `8 .oPYo. .oPYo.  o8P .oPYo. oPYo.
     end
     return nil
   end
-
-    # Call function to show all of the doctors a user has visited
-    # def show_doctors_patient_visited
-    #   Patient.all.select | patient | 
-
-    # end
-
 
 
   #finds all articles under the given author name (partial - first or last)
@@ -239,7 +301,7 @@ o    o 8   `8 .oPYo. .oPYo.  o8P .oPYo. oPYo.
 
   #adds a line as a page breaker
   def dashes
-    return "------------------------------------------------------------------"
+    return "--------------------------------------------------------"
   end
 
 end

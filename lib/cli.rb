@@ -1,6 +1,6 @@
 require_relative '../lib/tty-spinner'
 require_relative '../examples/multi/custom_style.rb'
-require_relative '../examples/multi/attempts.rb'
+require_relative '../examples/multi/spinnerFunctions.rb'
 require 'rest-client'
 require 'json'
 require 'rainbow'
@@ -35,7 +35,7 @@ o    o 8   `8 .oPYo. .oPYo.
     prompt = TTY::Prompt.new
 
     current_patient = nil
-    spinnerFunction2
+    spinnerFunctionForMainScreen
     while current_patient == nil
       users_response = prompt.select("Please either: ", [
         "Login in to your profile",
@@ -65,17 +65,65 @@ o    o 8   `8 .oPYo. .oPYo.
       end
 
       if (users_response == "Go rogue")
-        users_response = prompt.select("Rogue warrior mode: ", [
+        users_response_for_rogue = prompt.select("Rogue warrior mode: ", [
           "Search for Doctors",
-          "Create a new profile",
-          "Go rogue",
           "Quit"
         ])
+        case users_response_for_rogue
+        when "Search for Doctors"
+
+
+          search_response = prompt.select("What would you like to search by?", [
+            "City Location",
+            "Specialty"
+          ])
+          case search_response
+            when "City Location"
+              spinnerFunction5
+              doctor_locations = Doctor.distinct.pluck(:city).sort
+              doctor_specialty = Doctor.distinct.pluck(:specialty).sort
+              doctor_array = []
+              city_location = prompt.select("Which city?", doctor_locations)
+              Doctor.where(city: city_location).find_each do |doctor|
+                doctor_array << doctor
+              end
+              puts "There are #{doctor_array.length} doctors in #{city_location}"
+              refine_selection = prompt.select("Would you like to refine your search?", [
+                "Yes",
+                "No"
+              ])
+              if refine_selection == "Yes"
+                doc_spec = prompt.select("Which specialty?", doctor_specialty)
+                doctor_array.each do |doctor|
+                  if doc_spec == doctor.specialty
+                    
+                  end
+                end
+              end
+            end
+      
+
+
+
+
+        when "Quit"
+          exit
+        end  
+
+
+
+
+
     #   when "Search for Doctors"
     #     search_response = prompt.select("What would you like to search by?", [
     #       "City Location",
     #       "Specialty"
     #     ])
+
+
+
+
+
         case search_response
           when "City Location"
             spinnerFunction5

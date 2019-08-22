@@ -1,5 +1,22 @@
 require_relative '../../lib/tty-spinner'
 
+
+
+def spinnerFunctionForMainScreen
+
+  spinner = TTY::Spinner.new("[:spinner] Loading:", format: :arrow_pulse)
+
+  spinner.auto_spin # Automatic animation with default interval
+  
+  sleep(2) # Perform task
+  
+  spinner.stop('Complete') # Stop animation
+  # spinner.success
+
+end
+
+
+
 def spinnerFunction2
 
     spinner = TTY::Spinner.new("[:spinner] Loading..", format: :pulse_2)

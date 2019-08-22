@@ -10,28 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 5) do
+ActiveRecord::Schema.define(version: 3) do
 
   create_table "doctors", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "specialty"
+    t.string "practice_name"
+    t.integer "practice_phone_number"
+    t.string "street_address"
+    t.string "street_address_2"
     t.string "city"
     t.string "state"
   end
 
-  create_table "locations", force: :cascade do |t|
-    t.string "name"
-    t.integer "patient_id"
-    t.integer "doctor_id"
-  end
-
   create_table "patients", force: :cascade do |t|
     t.string "user_name"
+    t.string "password"
     t.string "first_name"
     t.string "last_name"
-    t.string "password"
     t.string "city"
+    t.string "doctors_searched"
+  end
+
+  create_table "searches", force: :cascade do |t|
+    t.integer "doctor_id"
+    t.integer "patient_id"
+    t.index ["doctor_id"], name: "index_searches_on_doctor_id"
+    t.index ["patient_id"], name: "index_searches_on_patient_id"
   end
 
 end

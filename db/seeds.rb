@@ -1,5 +1,5 @@
 require 'json'
-response = RestClient.get("https://data.medicare.gov/resource/c8qv-268j.json?st=AL&$limit=200000")
+response = RestClient.get("https://data.medicare.gov/resource/c8qv-268j.json?st=MS&$limit=200000")
 # response = RestClient.get("https://data.medicare.gov/resource/c*qv-268j.json") <-- Use to import the entire database
 doctors = JSON.parse(response.body)
 

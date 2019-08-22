@@ -1,5 +1,5 @@
 require_relative 'config/environment.rb'
-prompt = TTY::Prompt.new
+
 
 current_patient = nil
 

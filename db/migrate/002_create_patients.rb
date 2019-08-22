@@ -6,7 +6,7 @@ class CreatePatients < ActiveRecord::Migration[4.2]
 			table.string :first_name
 			table.string :last_name
 			table.string :city
-			table.string :doctors_searched
+			table.string :state
 		end
 	end
 end

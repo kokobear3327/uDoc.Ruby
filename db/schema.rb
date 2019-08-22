@@ -16,6 +16,10 @@ ActiveRecord::Schema.define(version: 3) do
     t.string "first_name"
     t.string "last_name"
     t.string "specialty"
+    t.string "practice_name"
+    t.integer "practice_phone_number"
+    t.string "street_address"
+    t.string "street_address_2"
     t.string "city"
     t.string "state"
   end
@@ -26,7 +30,7 @@ ActiveRecord::Schema.define(version: 3) do
     t.string "first_name"
     t.string "last_name"
     t.string "city"
-    t.string "doctors_searched"
+    t.string "state"
   end
 
   create_table "searches", force: :cascade do |t|

@@ -1,5 +1,5 @@
 require_relative 'config/environment.rb'
-
+prompt = TTY::Prompt.new
 
 current_patient = nil
 
@@ -117,12 +117,10 @@ while true
 
 								puts "There are #{sup_ref_doc_hash.length} who practice #{specialty_selection} in #{city_selection}"
 								doctor_id = prompt.select("Which Doctor?", sup_ref_doc_hash)
-=begin
 								Search.create({
 									doctor_id: doctor_id,
 									patient_id: current_patient.id
 								})
-=end
 							else
 								doctor_id = prompt.select("Which Doctor?", ref_doc_hash)
 								Search.create({
@@ -234,6 +232,7 @@ while true
 	when "Review Searches"
 		doc_review_hash = {}
 		prompt.say("Your Doctors")
+		binding.pry
 		current_patient.searches.reload
 		current_patient.searches.map do |search|
 			prompt.say(search.doctor.as_json.values)

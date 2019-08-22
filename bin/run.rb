@@ -5,6 +5,6 @@ cli = CommandLine.new
 a = Artii::Base.new :font => 'slant'
 prompt.say(a.asciify('Welcome to:'))
 cli.greet
-cli.premenu
+cli.starting_menu
 
 

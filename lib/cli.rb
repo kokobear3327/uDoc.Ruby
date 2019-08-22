@@ -3,9 +3,9 @@ require 'json'
 require 'rainbow'
 ActiveRecord::Base.logger = nil
 # prompt = TTY::Prompt.new
-
+current_patient = nil
 class CommandLine
-
+ 
   #displays welcome message
 
 
@@ -40,58 +40,104 @@ o    o 8   `8 .oPYo. .oPYo.
     case user_input
     when "Login in to your profile"
     login
-    return_to_menu
+    puts "login Successful!"
+    menu
     when "Create a new profile"
     signup
-    return_to_menu
-    when "Go rogue"
+    puts "Username successfully created!"
     menu
-    return_to_menu
+    when "Go rogue"
+    puts "Duck that, make a profile like we said!!"
+    premenu
     when "Quit"
     exit
     else
-    puts Rainbow("Invalid option. Please select a number between 1 and 4.").white.bright
+    puts Rainbow("Invalid option. Please select an option and hit enter.").white.bright
     end
-end
+    end
 
     def login
-    puts "here the user logs in"
-    puts "should bring you to the menu"
+      prompt = TTY::Prompt.new
+      current_patient = Patient.where({
+        user_name: prompt.ask("What is your username?"),
+        password: prompt.ask("What is your password?")
+      })
     end
 
     # Menu page for the logged in user
     def menu
     prompt = TTY::Prompt.new
     user_input = prompt.select("What do you want to do?", [
-          "Create your user profile",
-          "Search for doctors by region",
-          "Search for doctors by specialty",
-          "Search for the doctors the user has visited",
-          "Does something else",
-          "Quit the application"
+          "Update your user profile",
+          "Search for doctors",
+          "Review Searches",
+          "Quit"
     ])
 
     case user_input
 
-    when "Create your user profile"
-      # Preferable to set the default to the Houston area
-      show_all_doctors
-      return_to_menu
-    when "Search for doctors by region"
-      show_all_doctors_by_location
-      return_to_menu
-    when "Search for doctors by specialty"
-      show_all_doctors_by_location
-      return_to_menu
-    when "Search for the doctors the user has visited"
-      show_all_doctors_by_speciality
-      return_to_menu
-    when "Does something else"
-      puts "Not coded yet"
-      return_to_menu
-    when "Does something else"
-      puts "Not coded yet"
-    when "Quit the application"
+    when "Update your user profile"
+      response = prompt.select("What would you like to update?", [
+        "First Name",
+        "Last Name",
+        "City",
+        "Quit"
+      ])
+      case response
+        when "First Name"
+          first_name = prompt.ask("Please enter your first name: ")
+          current_patient.update(first_name: first_name)
+        when "Last Name"
+          last_name = prompt.ask("Please enter your last name: ")
+          current_patient.update(last_name: last_name)
+        when "City"
+          city = prompt.ask("What city in the Greater Houston Metro Area are you in?")
+          current_patient.update(city: city)
+          current_patient_location.update(name: city)
+        when "Quit"
+          exit
+        else
+          "Please choose a valid option"
+        end
+    when "Search for doctors"
+      search_response = prompt.select("What would you like to search by?", [
+        "City Location",
+        "Specialty"
+      ])
+      case search_response
+			when "City Location"
+				doctor_locations = Doctor.distinct.pluck(:city).sort
+				doctor_specialty = Doctor.distinct.pluck(:specialty).sort
+				doctor_array = []
+				city_location = prompt.select("Which city?", doctor_locations)
+				Doctor.where(city: city_location).find_each do |doctor|
+					doctor_array << doctor
+				end
+				puts "There are #{doctor_array.length} doctors in #{city_location}"
+				refine_selection = prompt.select("Would you like to refine your search?", [
+					"Yes",
+					"No"
+				])
+				if refine_selection == "Yes"
+					doc_spec = prompt.select("Which specialty?", doctor_specialty)
+					doctor_array.each do |doctor|
+						if doc_spec == doctor.specialty
+							
+						end
+					end
+				end
+
+
+			when "Specialty"
+
+			else
+				"Please choose a valid option"
+
+				
+			end
+    when "Review Searches"
+        
+    when "Quit"
       exit
     else
       puts Rainbow("Invalid option...").white.bright
@@ -101,35 +147,35 @@ end
 
     # Sign up dialogue
     def signup 
-    puts "❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ \n"
-    puts "Enter your username"
-    username = gets.chomp
-    puts "Enter your age"
-    userage = gets.chomp
-    puts "Enter your email"
-    useremail = gets.chomp
-    createuser(username, userage, useremail)
-    puts "❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤  \n"
-    menu
-    # quit
-    # You should have the option to either exit the application or return to menu.
+      prompt = TTY::Prompt.new
+      username = prompt.ask("Please enter a username:")
+      password = prompt.ask("Please enter a password:")
+      
+      current_patient = Patient.create({
+        user_name: username,
+        password: password
+      })
+  
+      current_patient_location = Location.create({
+        patient_id: current_patient.id
+      })
     end
 
-    def createuser(username, userage, useremail)
-    puts "Username: #{username} was created successfully! \n"
-    end
+    # def createuser(username, userage, useremail)
+    # puts "Username: #{username} was created successfully! \n"
+    # end
 
 
-    def login
-    puts "To login, enter your username"
-    username = gets.chomp
-    loginuser(username)
-    # This ^ takes you to the menu portal
-    end
+    # def login
+    # puts "To login, enter your username"
+    # username = gets.chomp
+    # loginuser(username)
+    # # This ^ takes you to the menu portal
+    # end
 
-    def loginuser(username)
-      menu
-    end
+    # def loginuser(username)
+    #   menu
+    # end
 
   def show_all_doctors
     puts "shows_all_doctors has been called, preferably narrowing to the Houston Area"

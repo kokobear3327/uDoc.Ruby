@@ -1,13 +1,15 @@
+require_relative '../lib/tty-spinner'
+require_relative '../examples/multi/custom_style.rb'
 require 'rest-client'
 require 'json'
 require 'rainbow'
+
 ActiveRecord::Base.logger = nil
 # prompt = TTY::Prompt.new
 current_patient = nil
 class CommandLine
  
   #displays welcome message
-
 
   def greet
     puts Rainbow("
@@ -42,6 +44,7 @@ o    o 8   `8 .oPYo. .oPYo.
       ])
       if (users_response == "Create a new profile")
         username = prompt.ask("Please enter a username:")
+        spinnerFunction
         password = prompt.ask("Please enter a password:")
         
         current_patient = Patient.create({
@@ -141,11 +144,39 @@ o    o 8   `8 .oPYo. .oPYo.
     
     
           when "Specialty"
-    
-          else
-            "Please choose a valid option"
-    
-            
+            doctor_specialties = Doctor.distinct.pluck(:specialty).sort
+            doctor_locations = Doctor.distinct.pluck(:city).sort
+            doctor_hash = {}
+            doctor_specialty = prompt.select("Which Specialty?", doctor_specialties)
+            Doctor.where(specialty: doctor_specialty).find_each do |doctor|
+                doctor_hash[doctor.last_name] = doctor.id
+            end
+            puts "There are #{doctor_hash.length} doctors who practice #{doctor_specialty}"
+            refined_search = prompt.select("Would you like to refine your search?", [
+                "Yes",
+                "No"    
+            ])
+            if refined_search == "Yes"
+                refined_doctor_hash = {}
+                doc_city = prompt.select("Which City?", doctor_locations)
+                Doctor.where({ specialty: doctor_specialty, city: doc_city}).find_each do |doctor|
+                    refined_doctor_hash[doctor.last_name] = doctor.id
+                end
+
+                #binding.pry
+
+                doctor_id = prompt.select("Which Doctor?", refined_doctor_hash)
+                Search.create({
+                    doctor_id: doctor_id,
+                    patient_id: current_patient[0].id
+                })
+            else
+                doctor_id = prompt.select("Which Doctor?", doctor_hash)
+                Search.create({
+                    doctor_id: doctor_id,
+                    patient_id: current_patient[0].id
+                })
+            end
           end
 
         when "Review Searches"

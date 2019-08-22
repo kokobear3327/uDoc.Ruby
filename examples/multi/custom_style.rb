@@ -1,5 +1,7 @@
 require_relative '../../lib/tty-spinner'
 
+def spinnerFunction
+
 opts = {
   style: {
     top: "|->  ",
@@ -24,3 +26,6 @@ sleep 1
 sp2.success
 sleep 1
 sp3.success
+
+
+end

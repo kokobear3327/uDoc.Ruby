@@ -30,8 +30,10 @@ ActiveRecord::Schema.define(version: 3) do
   end
 
   create_table "searches", force: :cascade do |t|
-    t.integer "patient_id"
     t.integer "doctor_id"
+    t.integer "patient_id"
+    t.index ["doctor_id"], name: "index_searches_on_doctor_id"
+    t.index ["patient_id"], name: "index_searches_on_patient_id"
   end
 
 end

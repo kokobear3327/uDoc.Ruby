@@ -18,18 +18,16 @@ while current_patient == nil
 			user_name: username,
 			password: password
 		})
-
-
 	when"Login"
 		current_patient = Patient.where({
 			user_name: prompt.ask("What is your username?"),
 			password: prompt.ask("What is your password?")
-		})
+		}).first
 	end
+
 end
 
 while true
-
 	puts "Hello! Please take a moment to update your profile if you are a new patient or
 	your information has changed."
 
@@ -71,8 +69,9 @@ while true
 				doctor_locations = Doctor.distinct.pluck(:city).sort
 				doctor_specialty = Doctor.distinct.pluck(:specialty).sort
 				doctor_hash = {}
-				city_location = prompt.select("Which city?", doctor_locations)
+				
 
+				city_location = prompt.select("Which city?", doctor_locations)
 				Doctor.where(city: city_location).find_each do |doctor|
 					doctor_hash[doctor.last_name] = doctor.id
 				end
@@ -90,19 +89,20 @@ while true
 					doctor_id = prompt.select("Which Doctor?", refined_doctor_hash)
 					Search.create({
 						doctor_id: doctor_id,
-						patient_id: current_patient[0].id
+						patient_id: current_patient.id
 					})
 				else
 					doctor_id = prompt.select("Which Doctor?", doctor_hash)
 					Search.create({
 						doctor_id: doctor_id,
-						patient_id: current_patient[0].id
+						patient_id: current_patient.id
 					})
 				end
 			when "Specialty"
 				doctor_specialties = Doctor.distinct.pluck(:specialty).sort
 				doctor_locations = Doctor.distinct.pluck(:city).sort
 				doctor_hash = {}
+
 				doctor_specialty = prompt.select("Which Specialty?", doctor_specialties)
 				Doctor.where(specialty: doctor_specialty).find_each do |doctor|
 					doctor_hash[doctor.last_name] = doctor.id
@@ -112,6 +112,7 @@ while true
 					"Yes",
 					"No"	
 				])
+
 				if refined_search == "Yes"
 					refined_doctor_hash = {}
 					doc_city = prompt.select("Which City?", doctor_locations)
@@ -119,26 +120,28 @@ while true
 						refined_doctor_hash[doctor.last_name] = doctor.id
 					end
 
-					#binding.pry
-
 					doctor_id = prompt.select("Which Doctor?", refined_doctor_hash)
 					Search.create({
 						doctor_id: doctor_id,
-						patient_id: current_patient[0].id
+						patient_id: current_patient.id
 					})
+
 				else
 					doctor_id = prompt.select("Which Doctor?", doctor_hash)
 					Search.create({
 						doctor_id: doctor_id,
-						patient_id: current_patient[0].id
+						patient_id: current_patient.id
 					})
 				end
 			else
 				"Please choose a valid option"
 			end
-	
+	when "Review Searches"
+		prompt.say("Your Doctors")
+		current_patient.searches.reload
+		current_patient.searches.each do |search|
+			prompt.say(search.doctor.inspect)
 		end
+	
+	end
 end
-
-
-

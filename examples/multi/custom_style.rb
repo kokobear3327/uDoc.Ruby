@@ -1,4 +1,5 @@
 require_relative '../../lib/tty-spinner'
+require_relative '../../lib/cli.rb'
 
 def spinnerFunction
 
@@ -10,22 +11,23 @@ opts = {
   },
   format: :bouncing_ball
 }
-spinners = TTY::Spinner::Multi.new("[:spinner] Doctor Data Loading!", opts)
+spinners = TTY::Spinner::Multi.new("[:spinner] Saving New User!", opts)
 
-sp1 = spinners.register "[:spinner] one"
-sp2 = spinners.register "[:spinner] two"
-sp3 = spinners.register "[:spinner] three"
+sp1 = spinners.register "[:spinner] Initializing your name"
+sp2 = spinners.register "[:spinner] Inputting to the database"
+# sp3 = spinners.register "[:spinner] three"
 
 sp1.auto_spin
 sp2.auto_spin
-sp3.auto_spin
+# sp3.auto_spin
 
-sleep(2)
+sleep(1)
 sp1.success
-sleep 1
+sleep(1)
 sp2.success
-sleep 1
-sp3.success
+
+# sleep 1
+# sp3.success
 
 
 end

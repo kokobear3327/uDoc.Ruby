@@ -18,11 +18,11 @@ module TTY
 
       def_delegators :@spinners, :each, :empty?, :length
 
-      DEFAULT_INSET = {
-        top:    Gem.win_platform? ? '+ '   : "\u250c ",
-        middle: Gem.win_platform? ? '|-- ' : "\u251c\u2500\u2500 ",
-        bottom: Gem.win_platform? ? '|__ ' : "\u2514\u2500\u2500 "
-      }
+      # DEFAULT_INSET = {
+      #   top:    Gem.win_platform? ? '+ '   : "\u250c ",
+      #   middle: Gem.win_platform? ? '|-- ' : "\u251c\u2500\u2500 ",
+      #   bottom: Gem.win_platform? ? '|__ ' : "\u2514\u2500\u2500 "
+      # }
 
       # The current count of all rendered rows
       #

@@ -121,10 +121,23 @@ class CommandLine
                                   end
                                   puts "There are #{sup_ref_doc_hash.length} who practice #{specialty_selection} in #{city_selection}"
                                   doctor_id = prompt.select("Which Doctor?", sup_ref_doc_hash)
+<<<<<<< HEAD
                                   
                               else
                                   doctor_id = prompt.select("Which Doctor?", ref_doc_hash)
                                   
+=======
+                                  Search.create({
+                                      doctor_id: doctor_id,
+                                      patient_id: current_patient.id
+                                  })
+                              else
+                                  doctor_id = prompt.select("Which Doctor?", ref_doc_hash)
+                                  Search.create({
+                                      doctor_id: doctor_id,
+                                      patient_id: current_patient.id
+                                  })
+>>>>>>> 8fd1857deffd6c51613169d3f89da6ee18015ec8
                               end
                           when "Specialty"
                               Doctor.where(state: state_selection).find_each do |doctor|
@@ -152,6 +165,7 @@ class CommandLine
                                   end
                                   prompt.say("There are #{refined_by_city_hash.length} practicing #{specialty_selection} in #{city_selection}")
                                   doctor_id = prompt.select("Which Doctor", refined_by_city_hash)
+<<<<<<< HEAD
                                   
                               else
                                   doctor_id = prompt.select("Which Doctor?", ref_doc_hash)
@@ -160,6 +174,25 @@ class CommandLine
                   else
                       doctor_id = prompt.select("Which Doctor?", doctor_hash)
                       
+=======
+                                  Search.create({
+                                      doctor_id: doctor_id,
+                                      patient_id: current_patient.id
+                                  })
+                              else
+                                  doctor_id = prompt.select("Which Doctor?", ref_doc_hash)
+                                  Search.create({
+                                      doctor_id: doctor_id,
+                                      patient_id: current_patient.id
+                                  })
+                              end
+                  else
+                      doctor_id = prompt.select("Which Doctor?", doctor_hash)
+                      Search.create({
+                          doctor_id: doctor_id,
+                          patient_id: current_patient.id
+                      })
+>>>>>>> 8fd1857deffd6c51613169d3f89da6ee18015ec8
                   end
               end
               when "Specialty"
@@ -193,10 +226,23 @@ class CommandLine
                           refined_doctor_hash[doctor.as_json.values] = doctor.id
                       end
                       doctor_id = prompt.select("Which Doctor?", refined_doctor_hash)
+<<<<<<< HEAD
                       
                   else
                       doctor_id = prompt.select("Which Doctor?", doctor_hash)
                      
+=======
+                      Search.create({
+                          doctor_id: doctor_id,
+                          patient_id: current_patient.id
+                      })
+                  else
+                      doctor_id = prompt.select("Which Doctor?", doctor_hash)
+                      Search.create({
+                          doctor_id: doctor_id,
+                          patient_id: current_patient.id
+                      })
+>>>>>>> 8fd1857deffd6c51613169d3f89da6ee18015ec8
                   end 
               else
                   "Please select a valid option"
@@ -397,6 +443,7 @@ class CommandLine
                                   puts "There are #{sup_ref_doc_hash.length} who practice #{specialty_selection} in #{city_selection}"
                                   doctor_id = prompt.select("Which Doctor?", sup_ref_doc_hash)
                                   Search.create({
+<<<<<<< HEAD
                                     doctor_id: doctor_id,
                                     patient_id: current_patient.id
                                 })
@@ -406,6 +453,17 @@ class CommandLine
                                     doctor_id: doctor_id,
                                     patient_id: current_patient.id
                                 })
+=======
+                                      doctor_id: doctor_id,
+                                      patient_id: current_patient.id
+                                  })
+                              else
+                                  doctor_id = prompt.select("Which Doctor?", ref_doc_hash)
+                                  Search.create({
+                                      doctor_id: doctor_id,
+                                      patient_id: current_patient.id
+                                  })
+>>>>>>> 8fd1857deffd6c51613169d3f89da6ee18015ec8
                               end
                           when "Specialty"
                               Doctor.where(state: state_selection).find_each do |doctor|
@@ -434,6 +492,7 @@ class CommandLine
                                   prompt.say("There are #{refined_by_city_hash.length} practicing #{specialty_selection} in #{city_selection}")
                                   doctor_id = prompt.select("Which Doctor", refined_by_city_hash)
                                   Search.create({
+<<<<<<< HEAD
                                     doctor_id: doctor_id,
                                     patient_id: current_patient.id
                                 })
@@ -448,6 +507,24 @@ class CommandLine
                   else
                       doctor_id = prompt.select("Which Doctor?", doctor_hash)
                      
+=======
+                                      doctor_id: doctor_id,
+                                      patient_id: current_patient.id
+                                  })
+                              else
+                                  doctor_id = prompt.select("Which Doctor?", ref_doc_hash)
+                                  Search.create({
+                                      doctor_id: doctor_id,
+                                      patient_id: current_patient.id
+                                  })
+                              end
+                  else
+                      doctor_id = prompt.select("Which Doctor?", doctor_hash)
+                      Search.create({
+                          doctor_id: doctor_id,
+                          patient_id: current_patient.id
+                      })
+>>>>>>> 8fd1857deffd6c51613169d3f89da6ee18015ec8
                   end
               end
               when "Specialty"
@@ -482,6 +559,7 @@ class CommandLine
                       end
                       doctor_id = prompt.select("Which Doctor?", refined_doctor_hash)
                       Search.create({
+<<<<<<< HEAD
                         doctor_id: doctor_id,
                         patient_id: current_patient.id
                     })
@@ -491,6 +569,17 @@ class CommandLine
                         doctor_id: doctor_id,
                         patient_id: current_patient.id
                     })
+=======
+                          doctor_id: doctor_id,
+                          patient_id: current_patient.id
+                      })
+                  else
+                      doctor_id = prompt.select("Which Doctor?", doctor_hash)
+                      Search.create({
+                          doctor_id: doctor_id,
+                          patient_id: current_patient.id
+                      })
+>>>>>>> 8fd1857deffd6c51613169d3f89da6ee18015ec8
                   end 
               else
                   "Please select a valid option"
@@ -499,7 +588,11 @@ class CommandLine
             when "Review Searches"
               doc_review_hash = {}
               prompt.say("Your Doctors")
+<<<<<<< HEAD
         
+=======
+              binding.pry
+>>>>>>> 8fd1857deffd6c51613169d3f89da6ee18015ec8
               current_patient.searches.reload
               current_patient.searches.map do |search|
                   prompt.say(search.doctor.as_json.values)

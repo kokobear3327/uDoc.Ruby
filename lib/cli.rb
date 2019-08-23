@@ -27,6 +27,7 @@ class CommandLine
   end
 
   def starting_menu
+
     prompt = TTY::Prompt.new
 
     current_patient = nil
@@ -38,17 +39,6 @@ class CommandLine
         "Go rogue",
         "Quit"
       ])
-      if (users_response == "Create a new profile")
-        username = prompt.ask("Please enter a username:")
-        spinnerFunction
-        password = prompt.ask("Please enter a password:")
-        spinnerFunction3
-        current_patient = Patient.create({
-          user_name: username,
-          password: password
-        })
-  
-      end
     
       if (users_response == "Login in to your profile")
         spinnerFunctionForLogin
@@ -59,20 +49,33 @@ class CommandLine
         spinnerFunction4
       end
 
+      if (users_response == "Create a new profile")
+        username = prompt.ask("Please enter a username:")
+        spinnerFunction
+        password = prompt.ask("Please enter a password:")
+        spinnerFunction3
+        current_patient = Patient.create({
+          user_name: username,
+          password: password
+        })
+      end
+
       if (users_response == "Go rogue")
-        spinnerFunction4
+        spinnerFunctionDotsForGoRogueBase
         users_response_for_rogue = prompt.select("Rogue warrior mode: ", [
           "Search for Doctors",
           "Quit"
         ])
         case users_response_for_rogue
         when "Search for Doctors"
+          spinnerFunctionDotsForSearchingForDoctors
           search_response = prompt.select("What would you like to search by?", [
               "State",
               "Specialty"
           ])
           case search_response
               when "State"
+                spinnerFunctionDotsForSearchingForDoctorsByState
                   doctor_states = Doctor.distinct.pluck(:state).sort
                   doctor_cities = []
                   doctor_specialties = []
@@ -95,6 +98,7 @@ class CommandLine
                       ])
                       case ref_selection
                           when "City"
+                            spinnerFunctionDotsForSearchingForDoctorsByCity
                               Doctor.where(state: state_selection).find_each do |doctor|
                                   doctor_cities << doctor.city
                               end
@@ -127,6 +131,7 @@ class CommandLine
                                   
                               end
                           when "Specialty"
+                            spinnerFunctionDotsForSearchingForDoctorsBySpecialty
                               Doctor.where(state: state_selection).find_each do |doctor|
                                   doctor_specialties << doctor.specialty
                               end
@@ -163,6 +168,7 @@ class CommandLine
                   end
               end
               when "Specialty"
+                spinnerFunctionDotsForSearchingForDoctorsBySpecialty
                   doctor_specialties = Doctor.distinct.pluck(:specialty).sort
                   doctor_hash = {}
                   doctor_specialty = prompt.select("Which Specialty?", doctor_specialties)
@@ -219,7 +225,7 @@ class CommandLine
 
         case search_response
           when "City Location"
-            spinnerFunction5
+            spinnerFunctionDotsForSearchingForDoctorsByCity
             doctor_locations = Doctor.distinct.pluck(:city).sort
             doctor_specialty = Doctor.distinct.pluck(:specialty).sort
             doctor_array = []
@@ -243,7 +249,7 @@ class CommandLine
     
     
           when "Specialty"
-            spinnerFunction5
+            spinnerFunctionDotsForSearchingForDoctorsBySpecialty
             doctor_specialties = Doctor.distinct.pluck(:specialty).sort
             doctor_locations = Doctor.distinct.pluck(:city).sort
             doctor_hash = {}
@@ -306,6 +312,7 @@ class CommandLine
       ])
       case users_response
       when "Update Profile"
+        spinnerFunctionDotsForUpdatingProfile
         response = prompt.select("What would you like to update?", [
           "First Name",
           "Last Name",
@@ -314,6 +321,7 @@ class CommandLine
         ])
         case response
           when "First Name"
+            spinnerFunctionDotsForUpdatingProfile
             first_name = prompt.ask("Please enter your first name: ")
             current_patient.update(first_name: first_name)
             spinnerFunction4
@@ -321,6 +329,7 @@ class CommandLine
             puts "First Name Successfully updated!"
             puts
           when "Last Name"
+            spinnerFunctionDotsForUpdatingProfile
             last_name = prompt.ask("Please enter your last name: ")
             current_patient.update(last_name: last_name)
             spinnerFunction4
@@ -328,6 +337,8 @@ class CommandLine
             puts "Last Name Successfully updated!" 
             puts
           when "City"
+            spinnerFunctionDotsForUpdatingProfile
+            spinnerFunctionDotsForSearchingForDoctorsByCity
             city = prompt.ask("What city in the Greater Houston Metro Area are you in?")
             current_patient.update(city: city)
             current_patient_location.update(name: city)
@@ -342,12 +353,14 @@ class CommandLine
           end
 
         when "Search for Doctors"
+          spinnerFunctionDotsForSearchingForDoctors
           search_response = prompt.select("What would you like to search by?", [
               "State",
               "Specialty"
           ])
           case search_response
               when "State"
+                spinnerFunctionDotsForSearchingForDoctorsByState
                   doctor_states = Doctor.distinct.pluck(:state).sort
                   doctor_cities = []
                   doctor_specialties = []
@@ -370,6 +383,7 @@ class CommandLine
                       ])
                       case ref_selection
                           when "City"
+                            spinnerFunctionDotsForSearchingForDoctorsByCity
                               Doctor.where(state: state_selection).find_each do |doctor|
                                   doctor_cities << doctor.city
                               end
@@ -408,6 +422,7 @@ class CommandLine
                                 })
                               end
                           when "Specialty"
+                            spinnerFunctionDotsForSearchingForDoctorsBySpecialty
                               Doctor.where(state: state_selection).find_each do |doctor|
                                   doctor_specialties << doctor.specialty
                               end
@@ -453,6 +468,7 @@ class CommandLine
                   end
               end
               when "Specialty"
+                spinnerFunctionDotsForSearchingForDoctorsBySpecialty
                   doctor_specialties = Doctor.distinct.pluck(:specialty).sort
                   doctor_hash = {}
                   doctor_specialty = prompt.select("Which Specialty?", doctor_specialties)

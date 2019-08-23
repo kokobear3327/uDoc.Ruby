@@ -29,6 +29,213 @@ def spinnerFunction2
 
 end
 
+def spinnerFunctionDotsForGoRogueBase
+
+  opts = {
+      style: {
+        top: "|->  ",
+        middle: "|->  ",
+        bottom: "|->  ",
+      },
+      format: :dots_2
+    }
+    spinners = TTY::Spinner::Multi.new("[:spinner] Calling the database!", opts)
+
+  sp1 = spinners.register "[:spinner] Populating models"
+  # or sp1 = ::TTY::Spinner.new("[:spinner] one")
+  # sp2 = spinners.register "[:spinner] Inputting to the database"
+  sleep(0.6)
+  sp1.auto_spin
+  sleep(0.6)
+  # sp2.auto_spin
+  # sleep(1)
+  
+
+  sp1.success
+  sleep(0.6)
+  # sp2.success
+  
+end
+
+def spinnerFunctionDotsForSearchingForDoctors
+
+  opts = {
+      style: {
+        top: "|->  ",
+        middle: "|--> ",
+        bottom: "|->  ",
+      },
+      format: :dots_8
+    }
+    spinners = TTY::Spinner::Multi.new("[:spinner] Initializing database!", opts)
+
+  sp1 = spinners.register "[:spinner] Populating doctors"
+  # or sp1 = ::TTY::Spinner.new("[:spinner] one")
+  # sp2 = spinners.register "[:spinner] Inputting to the database"
+  sleep(0.6)
+  sp1.auto_spin
+  sleep(0.6)
+  # sp2.auto_spin
+  # sleep(1)
+  
+
+  sp1.success
+  sleep(0.6)
+  # sp2.success
+  
+end
+
+def spinnerFunctionDotsForUpdatingProfile
+
+  opts = {
+      style: {
+        top: "|->  ",
+        middle: "|--> ",
+        bottom: "|->  ",
+      },
+      format: :dots_8
+    }
+    spinners = TTY::Spinner::Multi.new("[:spinner] Initializing database!", opts)
+
+  sp1 = spinners.register "[:spinner] Updating Profile"
+  # or sp1 = ::TTY::Spinner.new("[:spinner] one")
+  # sp2 = spinners.register "[:spinner] Inputting to the database"
+  sleep(0.6)
+  sp1.auto_spin
+  sleep(0.6)
+  # sp2.auto_spin
+  # sleep(1)
+  
+
+  sp1.success
+  sleep(0.6)
+  # sp2.success
+  
+end
+
+
+def spinnerFunctionDotsForSearchingForDoctorsGoRogue
+
+  opts = {
+      style: {
+        top: "|->  ",
+        middle: "|--> ",
+        bottom: "|->  ",
+      },
+      format: :dots_3
+    }
+    spinners = TTY::Spinner::Multi.new("[:spinner] Initializing database!", opts)
+
+  sp1 = spinners.register "[:spinner] Populating doctors"
+  # or sp1 = ::TTY::Spinner.new("[:spinner] one")
+  # sp2 = spinners.register "[:spinner] Inputting to the database"
+  sleep(0.6)
+  sp1.auto_spin
+  sleep(0.6)
+  # sp2.auto_spin
+  # sleep(1)
+  
+
+  sp1.success
+  sleep(0.6)
+  # sp2.success
+  
+end
+
+def spinnerFunctionDotsForSearchingForDoctorsByState
+
+  opts = {
+      style: {
+        top: "|->  ",
+        middle: "|--> ",
+        bottom: "|->  ",
+      },
+      format: :dots_5
+    }
+    spinners = TTY::Spinner::Multi.new("[:spinner] Initializing states!", opts)
+
+  sp1 = spinners.register "[:spinner] Populating doctors"
+  # or sp1 = ::TTY::Spinner.new("[:spinner] one")
+  # sp2 = spinners.register "[:spinner] Inputting to the database"
+  sleep(0.6)
+  sp1.auto_spin
+  sleep(0.6)
+  # sp2.auto_spin
+  # sleep(1)
+  
+
+  sp1.success
+  sleep(0.6)
+  # sp2.success
+  
+end
+
+
+
+
+
+def spinnerFunctionDotsForSearchingForDoctorsByCity
+
+  opts = {
+      style: {
+        top: "|->  ",
+        middle: "|--> ",
+        bottom: "|->  ",
+      },
+      format: :dots_5
+    }
+    spinners = TTY::Spinner::Multi.new("[:spinner] Initializing cities!", opts)
+
+  sp1 = spinners.register "[:spinner] Populating doctors"
+  # or sp1 = ::TTY::Spinner.new("[:spinner] one")
+  # sp2 = spinners.register "[:spinner] Inputting to the database"
+  sleep(0.6)
+  sp1.auto_spin
+  sleep(0.6)
+  # sp2.auto_spin
+  # sleep(1)
+  
+
+  sp1.success
+  sleep(0.6)
+  # sp2.success
+  
+end
+
+
+
+
+
+def spinnerFunctionDotsForSearchingForDoctorsBySpecialty
+
+  opts = {
+      style: {
+        top: "|->  ",
+        middle: "|--> ",
+        bottom: "|->  ",
+      },
+      format: :dots_6
+    }
+    spinners = TTY::Spinner::Multi.new("[:spinner] Initializing specialties!", opts)
+
+  sp1 = spinners.register "[:spinner] Populating doctors"
+  # or sp1 = ::TTY::Spinner.new("[:spinner] one")
+  # sp2 = spinners.register "[:spinner] Inputting to the database"
+  sleep(0.6)
+  sp1.auto_spin
+  sleep(0.6)
+  # sp2.auto_spin
+  # sleep(1)
+  
+
+  sp1.success
+  sleep(0.6)
+  # sp2.success
+  
+end
+
+
+
 def spinnerFunction3
 
     opts = {

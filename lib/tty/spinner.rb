@@ -15,15 +15,15 @@ module TTY
     include MonitorMixin
 
     # @raised when attempting to join dead thread
-    NotSpinningError = Class.new(StandardError)
+    # NotSpinningError = Class.new(StandardError)
 
-    ECMA_CSI = "\x1b["
+    # ECMA_CSI = "\x1b["
 
-    MATCHER = /:spinner/
-    TICK = '✔'
-    CROSS = '✖'
+    # MATCHER = /:spinner/
+    # TICK = '✔'
+    # CROSS = '✖'
 
-    CURSOR_LOCK = Monitor.new
+    # CURSOR_LOCK = Monitor.new
 
     # The object that responds to print call defaulting to stderr
     #

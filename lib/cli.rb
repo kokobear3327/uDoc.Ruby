@@ -1,6 +1,7 @@
 require_relative '../lib/tty-spinner'
 require_relative '../examples/multi/custom_style.rb'
 require_relative '../examples/multi/spinnerFunctions.rb'
+require_relative '../examples/happy_ending.rb'
 require 'rest-client'
 require 'json'
 require 'rainbow'
@@ -107,7 +108,7 @@ o    o 8   `8 .oPYo. .oPYo.
 
 
         when "Quit"
-          exit
+          happy_ending_exit
         end  
 
 
@@ -337,6 +338,6 @@ end
   def quit
     puts Rainbow("\n\n ❤ ❤ ❤  Thanks for choosing uDoc, we hope he's a great fit ❤ ❤ ❤ \n\n").green
     nil
-    exit
+    happy_ending_exit
   end
 

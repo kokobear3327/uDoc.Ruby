@@ -17,3 +17,7 @@ gem 'tty-prompt'
 gem 'artii'
 # Added2
 gem 'tty-spinner'
+# Added3
+gem 'pastel'
+gem 'tty-cursor'
+gem 'tty-screen'

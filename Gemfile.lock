@@ -23,6 +23,7 @@ GEM
     eventmachine (1.2.7)
     faker (2.1.2)
       i18n (>= 0.8)
+    http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (1.6.0)
@@ -42,19 +43,20 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
     rack (2.0.7)
-    rack-protection (2.0.5)
+    rack-protection (2.0.7)
       rack
     rainbow (3.0.0)
     rake (12.3.3)
     require_all (2.0.0)
-    rest-client (2.0.2)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
-    sinatra (2.0.5)
+    sinatra (2.0.7)
       mustermann (~> 1.0)
       rack (~> 2.0)
-      rack-protection (= 2.0.5)
+      rack-protection (= 2.0.7)
       tilt (~> 2.0)
     sinatra-activerecord (2.0.13)
       activerecord (>= 3.2)
@@ -93,6 +95,7 @@ DEPENDENCIES
   activerecord (= 5.2)
   artii
   faker
+  pastel
   pry
   rainbow
   rake
@@ -102,7 +105,9 @@ DEPENDENCIES
   sinatra-activerecord
   sqlite3 (~> 1.3.6)
   thin
+  tty-cursor
   tty-prompt
+  tty-screen
   tty-spinner
 
 BUNDLED WITH

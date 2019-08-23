@@ -2,9 +2,11 @@ require_relative '../lib/tty-spinner'
 require_relative '../examples/multi/custom_style.rb'
 require_relative '../examples/multi/spinnerFunctions.rb'
 require_relative '../examples/happy_ending.rb'
+require_relative '../lib/tty-font'
 require 'rest-client'
 require 'json'
 require 'rainbow'
+require 'pastel'
 
 ActiveRecord::Base.logger = nil
 # prompt = TTY::Prompt.new
@@ -13,22 +15,33 @@ class CommandLine
  
   #displays welcome message
 
+
+
   def greet
-    puts Rainbow("
 
-        ooo.               
-       8  `8.              
-o    o 8   `8 .oPYo. .oPYo.
-8    8 8    8 8    8 8    '
-8    8 8   .P 8    8 8    .
-`Y00P' 8ooo'  `YooP' `YooP'
-./\/\ :.....:.....:::.....:
-:.....:::::::::::::::::::::
-::::::::::::::::::::::::::: 
+    pastel = Pastel.new
+    font = TTY::Font.new("3d")
+    puts
+    puts pastel.green(font.write('uDoc'))
+    puts
 
-       ").green
-    # puts Rainbow(" ❤ /\\❤  The uDoc App  ❤ /\\❤ \n Find your doctor by location or specialty:  \n").white.bright
-     puts Rainbow(" ❤ ❤  The ultimate Doctor finding App ❤ ❤").white.bright 
+
+
+
+#     puts Rainbow("
+
+#         ooo.               
+#        8  `8.              
+# o    o 8   `8 .oPYo. .oPYo.
+# 8    8 8    8 8    8 8    '
+# 8    8 8   .P 8    8 8    .
+# `Y00P' 8ooo'  `YooP' `YooP'
+# ./\/\ :.....:.....:::.....:
+# :.....:::::::::::::::::::::
+# ::::::::::::::::::::::::::: 
+
+#        ").green
+     puts Rainbow(" ❤ ❤  The ultimate Doctor finding App ❤ ❤").white
      puts Rainbow("Find your doctor by location or specialty:  \n").green
   end
 

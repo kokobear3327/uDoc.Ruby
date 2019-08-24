@@ -8,7 +8,7 @@ def spinnerFunctionForMainScreen
 
   spinner.auto_spin # Automatic animation with default interval
   
-  sleep(2) # Perform task
+  sleep(0.76) # Perform task
   
   spinner.stop('Complete') # Stop animation
   # spinner.success
@@ -23,7 +23,7 @@ def spinnerFunction2
 
     spinner.auto_spin # Automatic animation with default interval
     
-    sleep(1) # Perform task
+    sleep(0.5) # Perform task
     
     spinner.stop('Complete') # Stop animation
 
@@ -44,7 +44,7 @@ def spinnerFunctionDotsForGoRogueBase
   sp1 = spinners.register "[:spinner] Populating models"
   # or sp1 = ::TTY::Spinner.new("[:spinner] one")
   # sp2 = spinners.register "[:spinner] Inputting to the database"
-  sleep(0.6)
+  sleep(0.3)
   sp1.auto_spin
   sleep(0.6)
   # sp2.auto_spin
@@ -52,7 +52,7 @@ def spinnerFunctionDotsForGoRogueBase
   
 
   sp1.success
-  sleep(0.6)
+  sleep(0.3)
   # sp2.success
   
 end
@@ -72,7 +72,7 @@ def spinnerFunctionDotsForSearchingForDoctors
   sp1 = spinners.register "[:spinner] Populating doctors"
   # or sp1 = ::TTY::Spinner.new("[:spinner] one")
   # sp2 = spinners.register "[:spinner] Inputting to the database"
-  sleep(0.6)
+  sleep(0.3)
   sp1.auto_spin
   sleep(0.6)
   # sp2.auto_spin
@@ -80,7 +80,7 @@ def spinnerFunctionDotsForSearchingForDoctors
   
 
   sp1.success
-  sleep(0.6)
+  sleep(0.15)
   # sp2.success
   
 end
@@ -100,15 +100,15 @@ def spinnerFunctionDotsForUpdatingProfile
   sp1 = spinners.register "[:spinner] Updating Profile"
   # or sp1 = ::TTY::Spinner.new("[:spinner] one")
   # sp2 = spinners.register "[:spinner] Inputting to the database"
-  sleep(0.6)
+  sleep(0.2)
   sp1.auto_spin
-  sleep(0.6)
+  sleep(0.4)
   # sp2.auto_spin
   # sleep(1)
   
 
   sp1.success
-  sleep(0.6)
+  sleep(0.2)
   # sp2.success
   
 end
@@ -129,15 +129,15 @@ def spinnerFunctionDotsForSearchingForDoctorsGoRogue
   sp1 = spinners.register "[:spinner] Populating doctors"
   # or sp1 = ::TTY::Spinner.new("[:spinner] one")
   # sp2 = spinners.register "[:spinner] Inputting to the database"
-  sleep(0.6)
+  sleep(0.2)
   sp1.auto_spin
-  sleep(0.6)
+  sleep(0.4)
   # sp2.auto_spin
   # sleep(1)
   
 
   sp1.success
-  sleep(0.6)
+  sleep(0.2)
   # sp2.success
   
 end
@@ -157,15 +157,15 @@ def spinnerFunctionDotsForSearchingForDoctorsByState
   sp1 = spinners.register "[:spinner] Populating doctors"
   # or sp1 = ::TTY::Spinner.new("[:spinner] one")
   # sp2 = spinners.register "[:spinner] Inputting to the database"
-  sleep(0.6)
+  sleep(0.2)
   sp1.auto_spin
-  sleep(0.6)
+  sleep(0.4)
   # sp2.auto_spin
   # sleep(1)
   
 
   sp1.success
-  sleep(0.6)
+  sleep(0.2)
   # sp2.success
   
 end
@@ -189,15 +189,15 @@ def spinnerFunctionDotsForSearchingForDoctorsByCity
   sp1 = spinners.register "[:spinner] Populating doctors"
   # or sp1 = ::TTY::Spinner.new("[:spinner] one")
   # sp2 = spinners.register "[:spinner] Inputting to the database"
-  sleep(0.6)
+  sleep(0.2)
   sp1.auto_spin
-  sleep(0.6)
+  sleep(0.4)
   # sp2.auto_spin
   # sleep(1)
   
 
   sp1.success
-  sleep(0.6)
+  sleep(0.2)
   # sp2.success
   
 end
@@ -221,15 +221,15 @@ def spinnerFunctionDotsForSearchingForDoctorsBySpecialty
   sp1 = spinners.register "[:spinner] Populating doctors"
   # or sp1 = ::TTY::Spinner.new("[:spinner] one")
   # sp2 = spinners.register "[:spinner] Inputting to the database"
-  sleep(0.6)
+  sleep(0.2)
   sp1.auto_spin
-  sleep(0.6)
+  sleep(0.4)
   # sp2.auto_spin
   # sleep(1)
   
 
   sp1.success
-  sleep(0.6)
+  sleep(0.2)
   # sp2.success
   
 end
@@ -253,9 +253,9 @@ def spinnerFunction3
     sp2 = spinners.register "[:spinner] Inputting to the database"
     
     sp1.auto_spin
-    sleep(1)
+    sleep(0.2)
     sp2.auto_spin
-    sleep(1)
+    sleep(0.4)
     
   
     sp1.success
@@ -281,9 +281,9 @@ def spinnerFunctionForLogin
     sp2 = spinners.register "[:spinner] Loading into RAM"
     
     sp1.auto_spin
-    sleep(0.8)
+    sleep(0.2)
     sp2.auto_spin
-    sleep(0.6)
+    sleep(0.4)
     
   
     sp1.success
@@ -301,7 +301,7 @@ def spinnerFunction4
 
     spinner.auto_spin # Automatic animation with default interval
     
-    sleep(1) # Perform task
+    sleep(0.25) # Perform task
     
     spinner.stop('Complete') # Stop animation
 
@@ -313,7 +313,7 @@ def spinnerFunction5
 
     spinner.auto_spin # Automatic animation with default interval
     
-    sleep(1) # Perform task
+    sleep(0.25) # Perform task
     
     spinner.stop('Complete') # Stop animation
 

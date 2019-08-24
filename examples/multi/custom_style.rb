@@ -21,9 +21,9 @@ sp1.auto_spin
 sp2.auto_spin
 # sp3.auto_spin
 
-sleep(1)
+sleep(0.25)
 sp1.success
-sleep(1)
+sleep(0.50)
 sp2.success
 
 # sleep 1

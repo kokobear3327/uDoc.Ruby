@@ -12,7 +12,7 @@ gem 'rainbow'
 gem 'sinatra'
 gem 'thin'
 gem 'rake'
-gem 'activerecord', '5.2'
+gem 'activerecord', '5.2.4.5'
 gem 'tty-prompt'
 gem 'artii'
 # Added2
